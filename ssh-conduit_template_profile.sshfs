@@ -1,0 +1,44 @@
+# The ip address to contact
+# When connecting within a LAN specify the LAN ip address of the remote system
+# When connecting across the internet specify the public ip address of the remote firewall
+# Example: IP_ADDRESS=xxx.xxx.xxx.xxx
+IP_ADDRESS=
+
+
+# Port number forwarded by the remote firewall to the remote system
+# This is usually not needed when both systems are in the same LAN
+# Example: PORT_NUMBER=23716
+PORT_NUMBER=
+
+
+# Account name in the remote system that will be used to log in to it
+# Example: ACCOUNT_NAME=popeye
+ACCOUNT_NAME=
+
+
+# Optional sshfs parameters
+# The parameters must be enclosed in quotes
+# Example: PARAMETERS="-C -o reconnect -o idmap=user"
+# Default: PARAMETERS=
+PARAMETERS=
+
+
+# Folder in the remote system to include in this local system
+# To mount:
+#    The entire remote home folder, leave the value empty
+#    A folder in the remote home folder, provide its name without a leading slash
+#    A folder not in the remote home folder, provide the full path from the root directory
+# Spaces are allowed when the value is enclosed in quotes
+# Examples:
+#   REMOTE_FOLDER=
+#   REMOTE_FOLDER="Documents/Hints and Tips"
+#   REMOTE_FOLDER=/tmp
+# Default: REMOTE_FOLDER=
+REMOTE_FOLDER=
+
+
+# Name of the mount point on this local system where the remote folder and files will be shown
+# It must be unique and will automatically be created as a folder in the local home directory
+# Spaces are allowed when the value is enclosed in quotes
+# Example: MOUNT_POINT="popeye on xxx.xxx.xxx.xxx"
+MOUNT_POINT=

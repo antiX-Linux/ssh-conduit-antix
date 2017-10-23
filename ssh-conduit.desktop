@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SSH-Conduit
+Comment=Use remote resouces via an ssh encypted connection
+Exec=ssh-conduit.sh
+Icon=ssh-conduit.png
+Terminal=False
+Type=Application
+Categories=Application;Network;
+NoDisplay=False

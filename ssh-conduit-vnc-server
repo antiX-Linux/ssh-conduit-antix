@@ -1,0 +1,64 @@
+#!/bin/sh
+
+
+### BEGIN INIT INFO
+# Provides:          ssh-conduit-vnc-server
+# Required-Start:    $local_fs
+# Required-Stop:     
+# Should-Start:      
+# Should-Stop:       
+# Default-Start:     2 5
+# Default-Stop:      0 1 6
+# Short-Description: Start or stop the x11vnc server for ssh-conduit
+### END INIT INFO
+
+# Requires:
+#   killall, sudo, x11vnc
+#   ssh-conduit-x11vnc.sh
+#   Each suite executable script and the library list their own requirements.
+#
+# See also:
+#   ssh-conduit.sh
+
+
+# Set the version number
+PROGVERSION=1.1
+
+# Capture the name of the script including file extension
+PROGNAME=${0##*/}
+
+
+start()
+{   # Start x11vnc server for ssh-conduit
+	 /usr/local/bin/ssh-conduit-x11vnc.sh server
+}
+
+stop()
+{   # Stop all running processes of x11vnc
+	 sudo /usr/bin/killall x11vnc
+}
+
+
+# Message displayed when start is called
+START_MSG="Starting x11vnc server for SSH-Conduit"
+
+# Message displayed when stop is called
+STOP_MSG="Stopping all x11vnc servers"
+
+# Message displayed in all other cases
+OTHER_MSG="Usage: $PROGNAME start|stop"
+
+
+case $1 in
+   start)   echo "$START_MSG"
+            start
+            exit 
+            ;;
+   stop)    echo "$STOP_MSG"
+            stop
+            exit
+            ;;
+   *)       echo "$OTHER_MSG"
+            exit
+            ;;
+esac

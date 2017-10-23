@@ -1,0 +1,215 @@
+# ssh-conduit configuration
+
+# The ip address to contact
+# When connecting within a LAN specify the LAN ip address of the remote system
+# When connecting across the internet specify the public ip address of the remote firewall
+# Example: host=xxx.xxx.xxx.xxx
+host=
+
+
+# Enable extra ssh options to be sent via ssvnc viewer to the remote firewall
+# This allows additional_port_redirs_list to be used
+# The value should be: 1
+additional_port_redirs=1
+#
+# Port number forwarded by the remote firewall to the remote system
+# This is usually not needed when both systems are in the same LAN
+# The port number must be preceded by the -p switch
+# Example: additional_port_redirs_list=-p xxxxxx
+additional_port_redirs_list=
+
+
+# The account name and ip address to use to contact and log in to the remote system
+# Provide the user name of an existing account in the remote system
+# When connecting within a LAN specify the LAN ip address of the remote system
+# When connecting across the internet specify the public ip address of the remote firewall
+# These are automatically displayed in the ssvnc viewer configuration window
+# Example: disp=name@xxx.xxx.xxx.xxx
+disp=
+
+
+# Require the ssh log in password to be provided within 35 seconds, otherwise fail to log in
+# The value should be: 1
+ssh_local_protection=1
+
+
+# Enable the use of an ssh known host file reserved specifically for this profile
+# The ssvnc viewer employs port redirection via localhost
+# SSH stores a fingerprint key per remote system which is referenced to localhost
+# When multiple keys all reference localhost the keys can collide and the connection fail
+# Use of an ssh known host file per profile prevents the collisions
+# The value should be: 1
+ssh_known_hosts=1
+#
+# Name of the ssh known host file reserved for this profile
+# The path from the user home directory must precede the profile name
+# Use the same name as this profile and change the file name extension to .known
+# Spaces are not allowed
+# Example: ssh_known_hosts_filename=.vnc/profiles/ssh_known_hosts/profile_name.known
+ssh_known_hosts_filename=
+
+
+# The port number in the remote x11vnc server system for the vnc session
+# The value should be: 5900
+port=5900
+
+
+# The order of preference of the format in which the x11vnc server passes information to the ssvnc viewer
+# This is a performance setting that affects perceived responsivness of the ssvnc viewer
+ssvnc_encodings=zrle,tight,copyrect
+
+
+# The colour depth in which the x11vnc server sends information to the ssvnc viewer
+# This is a performance setting that affects perceived responsivness of the ssvnc viewer
+ssvnc_extra_opts=-16bpp
+
+
+# While keeping the x11vnc server screen size unchanged, the ssvnc viewer can display a scaled version of it
+# Doing that places an extra workload on the ssvnc viewer system which might be seen as degraded performance
+# Setting a scale value might also defeat an encoding preference and thereby adversely affect performance
+# Examples:
+#   ssvnc_scale=0.95       Show at 95%
+#   ssvnc_scale=           Show at 100% (i.e. do not scale)
+#   ssvnc_scale=1.07       Show at 107%
+#   ssvnc_scale=1024x768   Show at that size
+# Default: ssvnc_scale=
+ssvnc_scale=
+# An alternative is to lower the screen resolution of the x11vnc server system after the vnc session has started
+# Doing that can improve performance by reducing the amount of traffic sent over the network connection
+
+
+# The way in which the ssvnc viewer shows the x11vnc server system desktop when the vnc session begins
+# Examples:
+#   use_fullscreen=0       Show in a normal window together with with any other open windows
+#   use_fullscreen=1       Show in full screen with no other windows shown
+# Default: use_fullscreen=0
+use_fullscreen=0
+
+
+# Open the ssvnc configuration gui with options relevant to ssh shown
+# The value should be: 1
+use_ssh=1
+
+
+
+# ---------------------
+# Out of Scope Settings
+# ---------------------
+
+# The following are not required by the SSH-Conduit project and are deemed to be beyond its scope.
+# They are provided purely as a convenience for interested users.
+# The ssvnc documentation and web site provide further information.
+
+
+[connection]
+proxyhost=
+proxyport=
+
+
+[options]
+# parameters commented out with '#' indicate the default setting.
+
+#change_vncviewer=0
+#change_vncviewer_path=
+#choose_desktop=0
+#choose_desktop_geom=0
+#choose_filexfer=0
+#choose_multisession=0
+#choose_ncache=0
+#choose_othervnc=0
+#choose_x11vnc_opts=0
+#choose_xserver=0
+#compresslevel_text=Compress Level: default
+#crlfil=
+#crtdir=ACCEPTED_CERTS
+#cups_local_server=
+#cups_local_smb_server=
+#cups_manage_rcfile=1
+#cups_remote_port=
+#cups_remote_smb_port=
+#cups_x11vnc=0
+#disable_all_encryption=0
+#disable_pipeline=0
+#disable_ssl_workarounds=0
+#disable_ssl_workarounds_type=none
+#extra_sleep=
+#include_list=
+#listen_accept_popup=0
+#listen_accept_popup_sc=0
+#listen_once=0
+#multiple_listen=0
+#mycert=
+#no_probe_vencrypt=0
+#port_knocking_list=
+#port_slot=
+#putty_args=
+#quality_text=Quality: default
+#rfbversion=
+#sbwid_string=
+#server_anondh=0
+#server_vencrypt=0
+#smb_mount_list=
+#smb_su_mode=sudo
+#sound_daemon_kill=0
+#sound_daemon_local_cmd=
+#sound_daemon_local_kill=0
+#sound_daemon_local_port=
+#sound_daemon_local_start=0
+#sound_daemon_remote_cmd=
+#sound_daemon_remote_port=
+#sound_daemon_restart=0
+#sound_daemon_x11vnc=0
+#ssvnc_escape=
+#stunnel_local_protection=1
+#stunnel_local_protection_type=exec
+#svcert=
+#ts_cups_manage_rcfile=0
+#ts_desktop_depth=
+#ts_desktop_size=
+#ts_desktop_type=
+#ts_filexfer=
+#ts_mode=0
+#ts_multisession=
+#ts_ncache=8
+#ts_othervnc=
+#ts_unixpw=0
+#ts_vncshared=0
+#ts_x11vnc_autoport=
+#ts_x11vnc_opts=
+#ts_x11vnc_path=
+#ts_xlogin=0
+#ts_xserver_type=
+#ultra_dsm=0
+#ultra_dsm_file=
+#ultra_dsm_noultra=0
+#ultra_dsm_salt=
+#ultra_dsm_type=guess
+#unixpw_username=
+#use_alpha=0
+#use_bgr233=0
+#use_compresslevel=default
+#use_cups=0
+#use_grab=0
+#use_listen=0
+#use_nobell=0
+#use_nojpeg=0
+#use_notty=0
+#use_popupfix=0
+#use_port_knocking=0
+#use_quality=default
+#use_raise_on_beep=0
+#use_rawlocal=0
+#use_send_always=0
+#use_send_clipboard=0
+#use_smbmnt=0
+#use_sound=0
+#use_sshssl=0
+#use_ssl=0
+#use_turbovnc=0
+#use_unixpw=0
+#use_viewonly=0
+#use_x11_macosx=1
+#use_x11cursor=0
+#use_x11vnc_find=0
+#vncviewer_realvnc4=0
+#ycrop_string=

@@ -1,0 +1,504 @@
+# Resources and settings shared by ssh-conduit suite components 1.0
+
+# Requires:
+#   awk, cut, cp, find, grep, mkdir, ps, tr, wc, yad
+
+
+
+# ***** Icons **********************************************************
+
+# Location and name of icons
+ICONS=/usr/share/pixmaps
+LIB_APP=${ICONS}/ssh-conduit.png
+LIB_INFO=${ICONS}/info_blue.png
+LIB_FAILURE=${ICONS}/cross_red.png
+LIB_SUCCESS=${ICONS}/tick_green.png
+
+
+
+# ***** YAD Window *****************************************************
+
+# Title in the titlebar of YAD windows
+LIB_WINDOW_TITLE="SSH-Conduit"
+
+# Size in pixels of the border between the window edge and the dialogue
+LIB_BORDER_SIZE=5
+
+# Alignment of the dialogue text
+LIB_TEXT_ALIGNMENT=left
+
+
+
+# ***** YAD Timeout ****************************************************
+
+# Timeout period in seconds
+LIB_COUNTDOWN=5
+
+# Timeout indicator position
+LIB_COUNTDOWN_POSITION=bottom
+
+
+
+# ***** YAD Buttons ****************************************************
+
+# Layout of buttons
+LIB_BUTTONS_POSITION=center
+
+# Location, name, and definition of buttons
+BUTTON_ICONS=/usr/local/lib/ssh-conduit/button-icons
+LIB_AD_HOC="Ad Hoc"!${BUTTON_ICONS}/Ad-Hoc-16.png:3
+LIB_CANCEL=Cancel!${BUTTON_ICONS}/Cancel-16.png:1
+LIB_CLOSE=Close!${BUTTON_ICONS}/Close-16.png:5
+LIB_CLOSE_1=gtk-close
+LIB_DISCONNECT=Disconnect!${BUTTON_ICONS}/Network-Disconnected-16.png:2
+LIB_HELP=Help!${BUTTON_ICONS}/Help-16.png
+LIB_OK=OK!${BUTTON_ICONS}/Check-16.png:0
+LIB_PREFERRED=Preferred!${BUTTON_ICONS}/Target-16.png:0
+
+
+
+# ***** YAD Tray Icons *************************************************
+
+# Location and name of icons
+TRAY_ICONS=/usr/local/lib/ssh-conduit/tray-icons
+LIB_FILE_SYSTEM=${TRAY_ICONS}/ssh-conduit-f-48.png
+LIB_VPN_SESSION=${TRAY_ICONS}/ssh-conduit-v-48.png
+
+
+
+# ***** GKSU ***********************************************************
+
+# Message to show in the gksu window
+LIB_MESSAGE_GKSU="<b><big>Enter your local administrative password</big></b>"
+
+
+
+# ***** Functions ******************************************************
+
+lib_get-value-of-field()
+{
+   : 'Get the value of the nominated field from a variable'
+   :
+   : Parameters
+   : ' arg1   field number'
+   : ' arg2   field separator'
+   : ' arg3   variable to search'
+   :
+   : Result
+   : ' returns the value of arg1 delimited by the separator'
+   :
+   : Example
+   : ' VAR_OUT=$(lib_get-value-of-field "3" "|" "$VAR_IN" )'
+   :
+   : Note
+   : ' none'
+   :
+   : Requires
+   : ' awk'
+   
+   local RETURN_VALUE
+   RETURN_VALUE=$(echo "$3" | awk -v field_number="$1" -v FS="$2" '$0=$field_number')
+   echo "$RETURN_VALUE" 
+}
+
+
+
+lib_get-value-of-last-field()
+{
+   : 'Get the value of the last field from a variable'
+   :
+   : Parameters
+   : ' arg1   field separator'
+   : ' arg2   variable to search'
+   :
+   : Result
+   : ' returns the value of the last field delimited by the separator'
+   :
+   : Example
+   : ' VAR_OUT=$(lib_get-value-of-last-field "|" "$VAR_IN" )'
+   :
+   : Note
+   : ' none'
+   :
+   : Requires
+   : ' awk'
+   
+   local RETURN_VALUE
+   RETURN_VALUE=$(echo "$2" | awk -v FS="$1" '{ print $NF }')
+   echo "$RETURN_VALUE" 
+}
+
+
+
+lib_continue-or-quit()
+{
+   : 'Continue or quit based on the outcome of the previous command'
+   :
+   : Parameters
+   : ' arg1   exit-code of the most recently executed command'
+   :
+   : Result
+   : ' continues on exit code 0, quits on exit code greater than 0'
+   :
+   : Example
+   : ' yad --text "ipsum lorem"'
+   : ' continue-or-quit $?'
+   :
+   : Note
+   : ' $? is set in the calling script'
+   :
+   : Requires
+   : ' none'
+   
+   case $1 in
+      0)   # In yad the OK button or enter key was pressed
+           # Continue with the script
+           ;;
+      *)   # In yad the OK button or enter key was not pressed
+           # Quit the script taking no further action
+           exit 1
+           ;;
+   esac
+}
+
+
+
+lib_provide-file-from-skel()
+{
+   : 'Ensure a mandatory file is available in the user home file structure'
+   :
+   : Parameters
+   : ' arg1   absolute path to the destination dir in which to put the file'
+   : ' arg2   name of the file to provide'
+   :
+   : Result
+   : ' copies a file from /etc/skel/... when one is missing from ~/.config...'
+   :
+   : Example
+   : ' lib_provide-required-file $CONFIG_DIR "$CONFIG_FILE"'
+   :
+   : Note
+   : ' $CONFIG_DIR $CONFIG_FILE should be set in the calling script'
+   :
+   : Requires
+   : ' cut cp mkdir'
+   
+   local RELATIVE_PATH_TO_DIR
+   
+   # When the file is not present
+   if [[ ! -f "${1}/${2}" ]]; then
+   
+      # Ensure the destination directory is present
+      mkdir --parents  $1
+      
+      # Capture a relative location of the destination dir 
+      # by stripping $HOME from the front of arg1
+      RELATIVE_PATH_TO_DIR=$(echo $1 | cut -d'/' -f4-)
+      
+      # Put a copy of the file in place
+      cp "/etc/skel/${RELATIVE_PATH_TO_DIR}/${2}"  "${1}/${2}"
+   fi
+}
+
+
+
+lib_source-file-or-issue-error-message()
+{
+   : 'Capture user specifiable settings from a file'
+   : 'When the file is missing display an error message and exit'
+   :
+   : Parameters
+   : ' arg1   absolute path to the dir which contains the file'
+   : ' arg2   name of the file to source'
+   :
+   : Result
+   : ' makes the values set in the file available in the calling script'
+   :
+   : Example
+   : ' lib_source-file-or-issue-error-message $PROFILE_DIR "$PROFILE_FILE"'
+   :
+   : Note
+   : ' $PROFILE_DIR $PROFILE_FILE should be set in the calling script'
+   :
+   : Requires
+   : ' yad'
+   
+   local MESSAGE
+   local LABEL_01 TYPE_01 VALUE_01
+   local LABEL_02 TYPE_02 VALUE_02
+   
+   # When the file exists
+   if [[ -f ${1}/${2} ]]; then
+      
+      # Capture the values from the file
+      source "${1}/${2}"
+      
+      # When the file does not exist
+      else
+  
+      # Error message to display
+      MESSAGE="\n<b>Cannot find the file</b> \n\n"
+      
+      # Field 01 assignments
+      LABEL_01="${1}/${2}"
+      TYPE_01="LBL"
+      VALUE_01=""
+      
+      # Field 02 assignments
+      LABEL_02=""
+      TYPE_02="LBL"
+      VALUE_02=""
+
+      # Display the error message
+      yad --center                                   \
+          --width=0                                  \
+          --height=0                                 \
+          --title="$LIB_WINDOW_TITLE"                \
+          --borders="$LIB_BORDER_SIZE"               \
+          --image-on-top                             \
+          --image="$LIB_FAILURE"                     \
+          --text-align="$LIB_TEXT_ALIGNMENT"         \
+          --text="$MESSAGE"                          \
+          --buttons-layout="$LIB_BUTTONS_POSITION"   \
+          --button="$LIB_CLOSE"                      \
+          --form                                     \
+          --field="$LABEL_01":"$TYPE_01" "$VALUE_01" \
+          --field="$LABEL_02":"$TYPE_02" "$VALUE_02"
+
+      exit 1
+   fi
+}
+
+
+
+lib_enable-or-disable-browsing-to-select-a-profile-manually()
+{
+   : 'Decide whether the capability to manually select a profile should be greyed-out'
+   :
+   : Parameters
+   : ' none'
+   :
+   : Result
+   : ' returns the path to the profile directory when at least 1 file more'
+   : ' than the template profile is present in the profile directory'
+   : ' otherwise returns a value that greys-out browsing for a profile'
+   :
+   : Example
+   : ' function-name'
+   :
+   : Note
+   : ' $PROFILE_DIR should be set in the calling script'
+   :
+   : Requires
+   : ' find wc'
+   
+   local RETURN_VALUE PROFILE_COUNT
+   
+   # Capture the number of regular non dot files in the profile directory
+   PROFILE_COUNT=$(find $PROFILE_DIR -maxdepth 1 -type f -not -name ".*" | wc -l)
+   
+   # When 2 or more files are present in the profile directory
+   if [[ $PROFILE_COUNT -gt 1 ]]; then
+   
+      # Assign a yad field value to enable manual selection of a profile via yad
+      RETURN_VALUE=${PROFILE_DIR}/*
+      
+      # When only the profile template file is present in the profile directory
+      else
+      
+      # Assign a yad field value to disable manual selection of a profile via yad
+      RETURN_VALUE='@disabled@'
+   fi
+   
+   echo "$RETURN_VALUE"
+}
+
+
+
+lib_fallback-timeout()
+{
+   : 'Provides a fallback value in case the user misconfiged countdown value'
+   :
+   : Parameters
+   : ' arg1   $COUNTDOWN   i.e. the var holding the current countdown value'
+   :
+   : Result
+   : ' returns the fallback value when the countdown period is set to an empty value'
+   : ' otherwise returns the user preferred value when it is set to a non empty value'
+   :
+   : Example
+   : ' function-name'
+   :
+   : Note
+   : ' COUNTDOWN period should be stipulated in the app conf file'
+   : ' $COUNTDOWN should be set in the calling script'
+   : ' $LIB_COUNTDOWN should be set in the library'
+   :
+   : Requires
+   : ' none'
+   
+   local RETURN_VALUE
+   
+   case $1 in
+      "")   # Set a fallback period
+            RETURN_VALUE=$LIB_COUNTDOWN
+            ;;
+      *)    # Retain the value unchanged
+            RETURN_VALUE=$COUNTDOWN
+            ;;
+   esac
+
+   echo "$RETURN_VALUE"
+}
+
+
+
+lib_find-process-by-command-string-order()
+{
+   : 'Find a process by searching for part of (or entire) command that started it'
+   :
+   : Parameters
+   : ' arg1   string(s) to search for'
+   :
+   : Result
+   : ' returns the process info for the search string'
+   : ' compacts all white space to space'
+   :
+   : Example
+   : ' SSHUTTLE_VPN=$(find_process_by_known_command_string 'sshuttle.*ssh-conduit-vpn')'
+   :
+   : Note
+   : ' none'
+   :
+   : Requires
+   : ' ps grep tr'
+
+   local RETURN_VALUE
+   RETURN_VALUE=$(ps aux | grep -E "${1}" | grep -v 'grep' | tr -s [:space:] " ")   
+   echo "$RETURN_VALUE"
+}
+
+
+
+lib_set-checkbox-state-by-command-string-order()
+{
+   : 'Decide whether a yad checkbox is greyed-out by searching for a'
+   : 'process containing part of (or an entire) command'
+   :
+   : Parameters
+   : ' arg1   string(s) to search for'
+   :
+   : Result
+   : ' returns disabled when string not found (checkbox greyed-out)'
+   : ' returns FALSE when string is found (checkbox not greyed-out)'
+   :
+   : Example
+   : ' SELECT_DISCONNECT=$(lib_set-checkbox-state-by-command-string-order 'sshuttle.*ssh-conduit-vpn')'
+   :
+   : Note
+   : ' none'
+   :
+   : Requires
+   : ' none'
+   
+   local RETURN_VALUE CAPTURED_VALUE
+   
+   # Capture the process info
+   CAPTURED_VALUE=$(lib_find-process-by-command-string-order $1)
+   
+   case $CAPTURED_VALUE in
+      "")   # Process not found
+            # Assign a yad field value to disable (grey-out) the checkbox
+            RETURN_VALUE='@disabled@'
+            ;;
+      *)    # Process found
+            # Assign a yad field value to enable the checkbox
+            RETURN_VALUE=FALSE
+            ;;
+   esac
+   
+   echo "$RETURN_VALUE"
+}
+
+
+
+lib_opportunity-to-decline-preferred-profile()
+{
+   : 'Offer user an option to select one of the following:'
+   : '   use the preferred profile'
+   : '   use hoc mode'
+   : '   close an established connection'
+   : '   cancel'
+   : 'Timeout default selects use preferred profile'
+   :
+   : Parameters
+   : ' none'
+   :
+   : Result
+   : ' returns the exit code of the yad button clicked'
+   :
+   : Example
+   : ' function-name'
+   :
+   : Note
+   : ' none'
+   :
+   : Requires
+   : ' yad'
+   
+   local MESSAGE
+   local LABEL_01 TYPE_01 VALUE_01
+   local LABEL_02 TYPE_02 VALUE_02
+   local LABEL_03 TYPE_03 VALUE_03
+   local LABEL_04 TYPE_04 VALUE_04
+   
+   # Question to display
+   MESSAGE="\n<b><big> Which one?</big></b> \n\n"
+   
+   # Field 01 assignments
+   LABEL_01="<b>Preferred Profile</b> \
+             \nContinue using this profile \n"
+   TYPE_01="LBL"
+   VALUE_01=""
+
+   # Field 02 assignments
+   LABEL_02="<b>Ad Hoc</b> \
+             \nManually input the details or choose an alternative profile \n"
+   TYPE_02="LBL"
+   VALUE_02=""
+   
+   # Field 03 assignments
+   LABEL_03="<b>Disconnect</b> \
+             \nClose an established connection \n"
+   TYPE_03="LBL"
+   VALUE_03=""
+   
+   # Field 04 assignments
+   LABEL_04=""
+   TYPE_04="LBL"
+   VALUE_04=""
+
+   # Display the window asking the user to choose what to do
+   yad --center                                      \
+       --width=0                                     \
+       --height=0                                    \
+       --title="$LIB_WINDOW_TITLE"                   \
+       --borders="$LIB_BORDER_SIZE"                  \
+       --window-icon="$LIB_APP"                      \
+       --image-on-top                                \
+       --image="$LIB_APP"                            \
+       --text-align="$LIB_TEXT_ALIGNMENT"            \
+       --text="$MESSAGE"                             \
+       --timeout-indicator="$LIB_COUNTDOWN_POSITION" \
+       --timeout="$COUNTDOWN"                        \
+       --buttons-layout="$LIB_BUTTONS_POSITION"      \
+       --button="$LIB_PREFERRED"                     \
+       --button="$LIB_AD_HOC"                        \
+       --button="$LIB_DISCONNECT"                    \
+       --button="$LIB_CANCEL"                        \
+       --form                                        \
+       --field="$LABEL_01":"$TYPE_01" "$VALUE_01"    \
+       --field="$LABEL_02":"$TYPE_02" "$VALUE_02"    \
+       --field="$LABEL_03":"$TYPE_03" "$VALUE_03"    \
+       --field="$LABEL_04":"$TYPE_04" "$VALUE_04"
+}

@@ -1,0 +1,48 @@
+# The ip address to contact
+# This is usually the public ip address of the remote firewall
+# Example: IP_ADDRESS=xxx.xxx.xxx.xxx
+IP_ADDRESS=
+
+
+# Port number forwarded by the remote firewall to the remote ssh server system
+# Example: PORT_NUMBER=29346
+PORT_NUMBER=
+
+
+# Account name in the remote ssh server system that will be used to log in to it
+# Example: ACCOUNT_NAME=popeye
+ACCOUNT_NAME=
+
+
+# VPN mode
+# Choose only one of the following modes:
+# VPN_MODE=system-to-site
+#    The remote network handles everything including web browsing and dns queries
+#    This is equivalent to being physically present at the remote site
+#    Typical use; connecting from an untrusted location to a trusted network
+# VPN_MODE=site-to-site
+#    The local network handles everything including web browsing and dns queries
+#    The remote network provides access to its resources
+#    This is equivalent to a bridge between two discrete networks
+#    Typical use; connecting a trusted network to another trusted network
+# VPN_MODE=manual
+#    Define your own mode
+VPN_MODE=
+
+
+# Subnet to route over the VPN
+# Examples:
+#   0.0.0.0/0            everything, typical use; system-to-site mode (automatically used in that mode)
+#   xxx.xxx.xxx.0/24     a 255.255.255.0 netmask, typical use; site-to-site mode
+#   xxx.xxx.xxx.xxx      a single ip address
+SUBNET=
+
+
+# Optional sshuttle parameters
+# This is where to specify:
+#   Additional switches for predefined modes
+#   The switches for manual mode
+# The parameters must be enclosed in quotes
+# Example: PARAMETERS="-N --no-latency-control -e 'ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=3'"
+# Default: PARAMETERS=
+PARAMETERS=

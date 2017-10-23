@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e
+# Remove entry to antiX FAQ
+sed -i 'ssh-conduit.html/d' /usr/share/antiX/FAQ/index.html
+# End automatically added section

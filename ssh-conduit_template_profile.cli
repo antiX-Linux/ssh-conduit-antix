@@ -1,0 +1,30 @@
+# The IP address to contact
+# When connecting within a LAN specify the LAN IP address of the remote system
+# When connecting across the internet specify the public IP address of the remote firewall
+# Example: IP_ADDRESS=xxx.xxx.xxx.xxx
+IP_ADDRESS=
+
+
+# Port number forwarded by the remote firewall to the remote system
+# This is usually not needed when both systems are in the same LAN
+# Example: PORT_NUMBER=23716
+PORT_NUMBER=
+
+
+# Account name in the remote system that will be used to log in to it
+# Example: ACCOUNT_NAME=popeye
+ACCOUNT_NAME=
+
+
+# Optional ssh client parameters
+# The parameters must be enclosed in quotes
+# Example: PARAMETERS="-C -t -o ServerAliveInterval=15 -o ServerAliveCountMax=3"
+# Default: PARAMETERS=
+PARAMETERS=
+
+
+# Optional command to run on remote system
+# The command must be enclosed in quotes
+# Example: REMOTE_COMMAND="tmux new-session -A -s alpha 'mc\ \-x'"
+# Default: REMOTE_COMMAND=
+REMOTE_COMMAND=

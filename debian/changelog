@@ -1,0 +1,13 @@
+ssh-conduit-antix (0.1.1) unstable; urgency=medium
+
+  * removed 1o1assistant dependency
+  * new files from SamK 
+
+ -- anticapitalista <antix@operamail.com>  Tue, 19 Sep 2017 21:49:09 +0100
+ 
+ssh-conduit-antix (0.1.0) unstable; urgency=low 
+ 
+  * Initial Release.
+
+ -- anticapitalista <antiX@operamail.com>  Fri, 15 Sep 2017 20:34:00 +0200
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SSL/SSH VNC Viewer
+Comment=SSVNC - access remote VNC desktops
+Exec=ssvnc -noenc
+Icon=computer
+Terminal=false
+Type=Application
+StartupWMClass=Ssvnc.tcl
+Categories=Network;RemoteAccess;
+NoDisplay=False

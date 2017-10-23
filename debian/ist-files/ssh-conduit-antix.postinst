@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+# Add entry to antiX FAQ
+sed -i '/<tr><td><\/td><\/tr>/i\  <tr><td><a href="ssh-conduit.html">ssh-conduit</a></td><td> </td></tr>' /usr/share/antiX/FAQ/index.html
+
+# End automatically added section
