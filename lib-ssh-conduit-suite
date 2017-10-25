@@ -1,4 +1,5 @@
-# Resources and settings shared by ssh-conduit suite components 1.0
+# Resources and settings shared by ssh-conduit suite components
+# Version 1.1
 
 # Requires:
 #   awk, cut, cp, find, grep, mkdir, ps, tr, wc, yad
@@ -194,9 +195,42 @@ lib_provide-file-from-skel()
       # Capture a relative location of the destination dir 
       # by stripping $HOME from the front of arg1
       RELATIVE_PATH_TO_DIR=$(echo $1 | cut -d'/' -f4-)
-      
+     
       # Put a copy of the file in place
       cp "/etc/skel/${RELATIVE_PATH_TO_DIR}/${2}"  "${1}/${2}"
+   fi
+}
+
+
+
+lib_remove_underscores_from_file_name()
+{
+   : 'Replace each underscore character in a file name with a space'
+   :
+   : Parameters
+   : ' arg1   absolute path to the destination dir in which the file is located'
+   : ' arg2   name of the file to rename'
+   :
+   : Result
+   : ' rename a file retaining the same name with underscores substituted by spaces'
+   :
+   : Example
+   : ' lib_remove_underscores_from_file_name $PROFILE_DIR $PROFILE_TEMPLATE_FILE'
+   :
+   : Note
+   : ' $PROFILE_DIR $PROFILE_TEMPLATE_FILE should be set in the calling script'
+   :
+   : Requires
+   : ' mv tr'
+   
+   # When the file present
+   if [[ -f "${1}/${2}" ]]; then
+   
+      # Capture the file name with each underscore replaced with a space
+      FILENAME_WITH_UNDERSCORES_REMOVED="$(echo ${2} | tr '_' ' ')"
+      
+      # Rename the file using the same name without underscores
+      mv ${1}/${2} "${1}/${FILENAME_WITH_UNDERSCORES_REMOVED}"   
    fi
 }
 
