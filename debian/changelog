@@ -1,6 +1,7 @@
-ssh-conduit-antix (0.1.1.1) unstable; urgency=medium
+ssh-conduit-antix (1.1) unstable; urgency=medium
 
   * Correct updated lib-ssh-conduit-suite
+  * Update deb version to match the app version
 
  -- anticapitalista <antix@operamail.com>  Tue, 24 Oct 2017 17:41:37 +0300
 

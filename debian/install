@@ -12,10 +12,9 @@ supplementary.conf 	/etc/ssh-conduit/x11vnc
 x11vncrc 			/etc/ssh-conduit/x11vnc
 ssh-conduit-x11vnc.log 	/var/log/
 ssh-conduit.desktop 	/usr/share/applications/antix
-#ssvnc.desktop 		/usr/share/applications/antix
-#x11vnc.desktop 		/usr/share/applications/antix
-icon/*	             /usr/share/pixmaps
+icon/*			 /usr/share/pixmaps
 button-icons/* 		/usr/local/lib/ssh-conduit/button-icons
 tray-icons/* 		/usr/local/lib/ssh-conduit/tray-icons
 lib-ssh-conduit-suite 	/usr/local/lib/ssh-conduit
-#1-to-1_voice.html    /usr/share/antiX/FAQ 
+ssh-conduit.html    	/usr/share/antiX/FAQ 
+ssh-conduit 		/usr/share/antiX/FAQ/images

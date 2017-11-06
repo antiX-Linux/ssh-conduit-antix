@@ -1,0 +1,1336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>antiX-FAQ SSH-Conduit User Guide</title>
+<link rel="stylesheet" href="./antiX-boot.css" type="text/css" />
+</head>
+<body>
+
+<div id="left-col">
+<div id="antix-logo">
+  <a href="#banner-text">
+  <img src="images/antix-logo-3.png" width="138" height="111" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+  </a>
+</div>
+
+<div id="main-menu">
+
+<table id="menu-table" border="0">
+<tr class="top"><td></td></tr>
+  <tr><td><a href="index.html">Home</a></td><td> </td></tr>
+  <tr><td><a href="icewm.html">IceWM</a></td><td> </td></tr>
+  <tr><td><a href="fluxbox.html">Fluxbox</a></td><td> </td></tr>
+  <tr><td><a href="jwm.html">jwm</a></td><td> </td></tr>
+  <tr><td><a href="rox.html">Rox</a></td><td> </td></tr>
+  <tr><td><a href="spacefm.html">SpaceFM</a></td><td> </td></tr>
+  <tr><td><a href="conky.html">Conky</a></td><td> </td></tr>
+  <tr><td><a href="net.html">Internet</a></td><td> </td></tr>
+  <tr><td><a href="smxi.html">Smxi</a></td><td> </td></tr>
+  <tr><td><a href="persistence.html">Persistence</a></td><td> </td></tr>
+  <tr><td><a href="remaster.html">Remaster</a></td><td> </td></tr>
+  <tr><td><a href="snapshot.html">Snapshot</a></td><td> </td></tr>
+  <tr><td><a href="control_centre.html">Control Centre</a></td><td> </td></tr>
+  <tr><td><a href="cli_aptix.html">cli-aptiX</a></td><td> </td></tr>
+  <tr><td><a href="antiX-cli-cc.html">aptiX-cli-cc</a></td><td> </td></tr>
+  <tr><td><a href="mpsyt.html">mpsyt</a></td><td> </td></tr>
+  <tr><td><a href="pmrp.html">pmrp</a></td><td> </td></tr>
+  <tr><td><a href="boot-params.html">Boot Params</a></td><td> </td></tr>
+  <tr><td><a href="streamlight.html">Streamlight</a></td><td> </td></tr>
+  <tr><td><a href="connectshares.html">Connectshares</a></td><td> </td></tr>
+  <tr><td><a href="droopy.html">Droopy</a></td><td> </td></tr>
+  <tr><td><a href="1-to-1_assistance.html">1-to-1 Assistance</a></td><td> </td></tr>
+  <tr><td><a href="1-to-1_voice.html">1-to-1 Voice</a></td><td> </td></tr>
+  <tr class="chosen"><td><a href="ssh-conduit.html">SSH Conduit</a></td><td>&#187;</td></tr>
+  <tr><td><a href="wingrid.html">Wingrid</a></td><td> </td></tr>
+<tr><td></td> </tr>
+
+</table>
+</div>
+</div>
+
+<div id="right-col">
+<div id="banner-text">
+  <div id="banner-title">antiX-FAQ</div>
+  <div id="banner-subtitle">SSH-Conduit User Guide</div>
+</div>
+<div id="body-text">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p><a id="table_of_contents"></a></p></div>
+<div class="paragraph"><p><div class="start-toc">On this page:</div></p></div>
+<div class="ulist compact" id="toc"><ul>
+<li>
+<p>
+<a href="#under-toc">Conventions</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_what_is_ssh_conduit">What is SSH-Conduit?</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_typical_use_case">Typical Use Case</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_suite_characteristics">Suite Characteristics</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_network_aspects">Network Aspects</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_accessing_resources_from_a_remote_system_or_lan">Accessing Resources from a Remote System or LAN</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_illustrative_model">Illustrative Model</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_example_cli_access_across_the_internet_no_profile_used">Example CLI Access Across the Internet, No Profile Used</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_example_vpn_access_across_the_internet_preferred_profile_used_automatically">Example VPN Access Across the Internet, Preferred Profile Used Automatically</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_example_fs_access_within_a_lan_preferred_profile_bypassed_alternative_profile_selected_manually">Example FS Access Within a LAN, Preferred Profile Bypassed, Alternative Profile Selected Manually</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_example_vnc_access_within_a_lan_preferred_profile_bypassed_no_profile_used">Example VNC Access Within a LAN, Preferred Profile Bypassed, No Profile Used</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_vnc_utilities">VNC Utilities</a>
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_closing_an_access_session">Closing an Access Session</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_providing_resources_to_a_remote_system">Providing Resources to a Remote System</a>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#_enabling_vnc">Enabling VNC</a>
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<a href="#_summary_of_files">Summary of Files</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#_references">References</a>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="under-toc">Conventions</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">This is additional information</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Note" />
+</td>
+<td class="content">This is a tip</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/settings.png" alt="Note" />
+</td>
+<td class="content">This is an example configuration or setting</td>
+</tr></table>
+</div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_ssh_conduit">What is SSH-Conduit?</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>It is a suite of ways to privately make the resources of a system or a LAN available on another system.</p></div>
+<div class="paragraph"><p>A system may concurrently perform two roles:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Access resources from a remote system or LAN
+</p>
+</li>
+<li>
+<p>
+Provide resources from the local system or local LAN to a remote system
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Access to remote resources is available in the following ways:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+CLI &nbsp; &nbsp; Open a terminal to a remote system
+</p>
+</li>
+<li>
+<p>
+FS  &nbsp; &nbsp; &nbsp; Add/remove a remote folder to/from a local system
+</p>
+</li>
+<li>
+<p>
+VNC &nbsp; Operate the desktop of a remote system
+</p>
+</li>
+<li>
+<p>
+VPN &nbsp; Join/leave a remote network
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Any or all of the above may be used at the same time and/or be provided from the local system to a remote system.</p></div>
+<div class="paragraph"><p>You may use any of the suite components that access remote resources in two ways:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Make an ad hoc connection by manually inputting the information for each session
+</p>
+</li>
+<li>
+<p>
+Create and save a profile that may be selected manually or automatically for a session
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>It is anticipated the primary way of using a suite component will be via a profile.  Each suite component may have multiple profiles.  During launch, any or none of the profiles may be chosen before a connection is made.  Any one of the profiles can optionally be designated as the preferred profile.  In that case it is automatically loaded and connected at launch time.</p></div>
+<div class="paragraph"><p>The systems contact each other across either the internet or local network.  The connection is automatically encrypted to provide privacy during the session.</p></div>
+<div class="paragraph"><p>The suite is self contained.  Except for an ISP, connections across the internet do not depend upon the availability of third party services. Creation of external facilities or registration with their providers are not required.  Additional financial commitment is not needed.</p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_typical_use_case">Typical Use Case</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You have a private LAN at home comprising various systems which you administrate.  You want to access these systems using your local network connection to manage your files on them and also conduct maintenance and support tasks.  Additionally, while away from home you want to be able to do these tasks, or you want to access facilities that exist within your home LAN.  The access must be secure because it is needed from both trusted and untrusted locations.</p></div>
+<div class="paragraph"><p>You need to be able to carry out tasks on the remote systems while they are unattended i.e. when no operator is present.</p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_suite_characteristics">Suite Characteristics</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Some common aspects apply in all cases:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The suite does not change any configuration of SSH you have implemented
+</p>
+</li>
+<li>
+<p>
+The remote system that provides the resources must be running the SSH server daemon
+</p>
+</li>
+<li>
+<p>
+To access remote resources, you must have an account on the remote system
+</p>
+</li>
+<li>
+<p>
+An encrypted connection is established before the access session is granted
+</p>
+</li>
+<li>
+<p>
+The access session does not require anyone to be present at the remote system
+</p>
+</li>
+<li>
+<p>
+Launching an access session may be done with or without a profile that details how to connect
+</p>
+</li>
+<li>
+<p>
+During the launch of an access session you may manually choose one of multiple profiles, or use one automatically
+</p>
+</li>
+<li>
+<p>
+The automatic use of a preferred profile may be bypassed during launch
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>All access sessions can connect via a LAN or the internet, except a VPN session which is via internet only</p></div>
+<div class="paragraph"><p>When accessing remote resources across the internet:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The remote firewall/router must previously have been set up to forward a port to the system within the remote LAN on which the SSH server daemon is running
+</p>
+</li>
+<li>
+<p>
+The forwarded port number may be any available number you choose to use
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">Each firewall/router handles port forwarding in its own way, this means there is no single description that can cover all variations.  You should refer to the user manual to do the setting up.<br /></td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">If you are accessing remote resources across a local network rather than the internet, there is no need to forward a port from the firewall to the system on which SSH is running.  In that case, both systems must be in the same local network i.e. behind the same LAN firewall/router.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>When providing resources from the local system or local LAN to a remote system:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+An admin/info centre is available to report the status of, and enable limited management of, relevant services
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>When in use the suite components:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Place very few demands on your system resources
+</p>
+</li>
+<li>
+<p>
+Are suitable to run on both modern powerful kit and older less capable machines
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network_aspects">Network Aspects</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The suite does not change any netwoking configuration you have set up.</p></div>
+<div class="paragraph"><p>In the same way any other network based application, e.g. a web browser, needs networking to be operating normally, so does the suite.
+It relies on networking running in the usual way between the local and remote systems.</p></div>
+<div class="paragraph"><p>The Network performance of a system can be influenced by any combination of, the vast range of potential kit, the huge variety of software that might be installed, the way applications are used, the enormous number of ISPs.
+This means there are some factors beyond the control of the suite.</p></div>
+<div class="paragraph"><p>Constraining factors that might be present in either or both of the local and remote locations:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Capability and resources of either system e.g.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+Video adaptor and driver
+</p>
+</li>
+<li>
+<p>
+CPU power
+</p>
+</li>
+<li>
+<p>
+Amount of physical RAM
+</p>
+</li>
+<li>
+<p>
+Storage read/write speed
+</p>
+</li>
+<li>
+<p>
+Network adaptor speed
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Reliability of connection to either network
+</p>
+</li>
+<li>
+<p>
+Congestion of either network e.g.
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+The number of concurrent network users
+</p>
+</li>
+<li>
+<p>
+The nature of the tasks the network users are conducting
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+Quality of service settings on either network
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Constraining factors that might be ISP dependent:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Speed of the modem making the connection to the ISP
+</p>
+</li>
+<li>
+<p>
+Upload/Download speeds governed by the ISP
+</p>
+</li>
+<li>
+<p>
+Congestion of the ISP network
+</p>
+</li>
+<li>
+<p>
+Any other traffic shaping model imposed by the ISP
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_accessing_resources_from_a_remote_system_or_lan">Accessing Resources from a Remote System or LAN</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The first time you connect to a remote system you will be asked whether to accept and store its key fingerprint. If you decline, the connection will not be established and the access session will not start.</p></div>
+<div class="paragraph"><p>The range of ways in which the suite may be used mean it is impractical to try and cover every variation.  The following examples illustrate some basic ways the suite can be used.   You should adapt them to meet your particular circumstances or needs.</p></div>
+<div class="sect2">
+<h3 id="_illustrative_model">Illustrative Model</h3>
+<div class="paragraph"><p>The examples which follow below are based on this simplified model.  It shows accessing remote resources within a LAN and also across the internet.</p></div>
+<div class="paragraph"><p>In both cases:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Each of the systems providing the resources is running its own copy of the SSH server daemon
+</p>
+</li>
+<li>
+<p>
+An encrypted tunnel is established and all traffic passes privately within it
+</p>
+</li>
+<li>
+<p>
+For VNC access, each of the systems providing the resource is running its own copy of the suite VNC server
+</p>
+</li>
+<li>
+<p>
+The IP address used in the examples is for illustration purposes only
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>In the case where access is across the internet:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A port in the firewall/router is forwarded to the system within the LAN on which the SSH server daemon is running
+</p>
+</li>
+<li>
+<p>
+The IP address and forwarded port number used in the examples are for illustration purposes only
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/illustrative_model.jpg" alt="ssh-conduit/illustrative_model.jpg" />
+</span></p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+<div class="sect2">
+<h3 id="_example_cli_access_across_the_internet_no_profile_used">Example CLI Access Across the Internet, No Profile Used</h3>
+<div class="paragraph"><p>In this example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A profile for CLI access does not exist
+</p>
+</li>
+<li>
+<p>
+You will manually input the connection details
+</p>
+</li>
+<li>
+<p>
+When the remote system authorises the connection a termial window is opened to it
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/cli_suite_menu.jpg" alt="ssh-conduit/cli_suite_menu.jpg" />
+</span></p></div>
+<div class="paragraph"><p>From the suite main menu start CLI access mode</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/cli_ad_hoc_window.jpg" alt="ssh-conduit/cli_ad_hoc_window.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Input:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The external address of the remote firewall/router
+</p>
+</li>
+<li>
+<p>
+The port number the remote firewall/router forwards to the remote system that is running the SSH server daemon
+</p>
+</li>
+<li>
+<p>
+The user name on the remote system that will be used to log in to it
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>When prompted input the password for the remote account.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/cli_terminal_to_remote_system.jpg" alt="ssh-conduit/cli_terminal_to_remote_system.jpg" />
+</span></p></div>
+<div class="paragraph"><p>A terminal to the remote system is automatically opened.<br />
+The user name and IP address is shown in the window title bar.</p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+<div class="sect2">
+<h3 id="_example_vpn_access_across_the_internet_preferred_profile_used_automatically">Example VPN Access Across the Internet, Preferred Profile Used Automatically</h3>
+<div class="paragraph"><p>In this example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+You will start and immediately stop VPN mode without making a connection to ensure a template profile exists
+</p>
+</li>
+<li>
+<p>
+You will copy the template profile and edit it to contain the connection details
+</p>
+</li>
+<li>
+<p>
+You will nominate the profile as the preferred profile
+</p>
+</li>
+<li>
+<p>
+You will start VPN mode which without further input will automatically use the preferred profile
+</p>
+</li>
+<li>
+<p>
+When the remote system authorises the connection an icon is added to the task bar
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vpn_suite_menu.jpg" alt="ssh-conduit/vpn_suite_menu.jpg" />
+</span></p></div>
+<div class="paragraph"><p>From the suite main menu start VPN access mode</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vpn_ad_hoc_window.jpg" alt="ssh-conduit/vpn_ad_hoc_window.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Immediately press the <em>Cancel</em> button without inputting any details.<br />
+The suite automatically puts a template profile in place.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>Use your file manager to create a copy of the the template profile.<br />
+It is stored in a hidden file in your home folder <em>.config/ssh-conduit/sshuttle/profiles/ssh-conduit template profile.sshuttle</em>.<br />
+Give the copy a meaningful name e.g. <em>vpn to home lan as demo.sshuttle</em>.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">sshuttle is the name of the application which SSH-Conduit uses for VPN connections</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>Open <em>vpn to home lan as demo.sshuttle</em> in your text editor and input the connection details.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/settings.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>Example vpn profile connection details</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code># The ip address to contact
+# This is usually the public ip address of the remote firewall
+# Example: IP_ADDRESS=xxx.xxx.xxx.xxx
+IP_ADDRESS=1.2.3.456
+
+
+# Port number forwarded by the remote firewall to the remote ssh server system
+# Example: PORT_NUMBER=29346
+PORT_NUMBER=34567
+
+
+# Account name in the remote ssh server system that will be used to log in to it
+# Example: ACCOUNT_NAME=popeye
+ACCOUNT_NAME=demo
+
+
+# VPN mode
+# Choose only one of the following modes:
+# VPN_MODE=system-to-site
+#    The remote network handles everything including web browsing and dns queries
+#    This is equivalent to being physically present at the remote site
+#    Typical use; connecting from an untrusted location to a trusted network
+# VPN_MODE=site-to-site
+#    The local network handles everything including web browsing and dns queries
+#    The remote network provides access to its resources
+#    This is equivalent to a bridge between two discrete networks
+#    Typical use; connecting a trusted network to another trusted network
+# VPN_MODE=manual
+#    Define your own mode
+VPN_MODE=system-to-site</code></pre>
+</div></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>For this example all other configuration values may safely be left empty.</p></div>
+<div class="paragraph"><p>After entering and saving the details, your choices will be used whenever the profile is selected.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>The final step is to nominate the profile as the preferred profile so it is automatically used<br />
+In your text editor open the hidden file in your home folder <em>.config/ssh-conduit/sshuttle/sshuttle.conf</em><br />
+Input the name of your preferred profile</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/settings.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>Example nominating a preferred vpn profile</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code># File name of the preferred profile to load
+# Spaces are allowed when the value is enclosed in quotes
+# Example: "ssh-conduit meaningful name.sshuttle"
+# Default: PREFERRED_PROFILE=
+PREFERRED_PROFILE="vpn to home lan as demo.sshuttle"</code></pre>
+</div></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>For this example all other configuration values may safely be left unchanged.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>From the suite main menu start VPN access mode.<br />
+After a short countdown period a connection will be set up automatically.</p></div>
+<div class="paragraph"><p>When prompted input the password for the remote account.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>To indicate a VPN connection, an icon is added to the task bar tray of your local system</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vpn_task_bar_icon.jpg" alt="ssh-conduit/vpn_task_bar_icon.jpg" />
+</span></p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+<div class="sect2">
+<h3 id="_example_fs_access_within_a_lan_preferred_profile_bypassed_alternative_profile_selected_manually">Example FS Access Within a LAN, Preferred Profile Bypassed, Alternative Profile Selected Manually</h3>
+<div class="paragraph"><p>In this example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+You must have multiple, fully configured profiles for FS access available from which you will make a selection
+</p>
+</li>
+<li>
+<p>
+You must have previously nominated one of the available profiles as a preferred profile
+</p>
+</li>
+<li>
+<p>
+You will bypass the automatic use of a preferred profile
+</p>
+</li>
+<li>
+<p>
+You will manually browse for and use an alternative profile
+</p>
+</li>
+<li>
+<p>
+When the remote system authorises the connection an icon is added to the task bar
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_suite_menu.jpg" alt="ssh-conduit/fs_suite_menu.jpg" />
+</span></p></div>
+<div class="paragraph"><p>From the suite main menu start FS access mode</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_bypass_preferred_profile.jpg" alt="ssh-conduit/fs_bypass_preferred_profile.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Press the <em>Ad Hoc</em> button before the countdown ends</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">If a button is not pressed, <em>Preferred</em> is automatically started after a timeout<br />
+<br />
+The countdown period can be adjusted in <em>sshfs.conf</em>.<br />
+Each individual access component can be modified in a similar way by changing the value in its corresponding conf file.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_choose_method_2.jpg" alt="ssh-conduit/fs_choose_method_2.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Choose <em>Method 2</em> and press the button showing a folder icon to select an existing profile</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">This option is disabled unless the template profile and at least one other profile are available.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_select_alternative_profile.jpg" alt="ssh-conduit/fs_select_alternative_profile.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Select the profile to use and press the <em>Open</em> button</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">sshfs is the name of the application which SSH-Conduit uses for FS connections</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_selected_alternative_profile_shown_in_button.jpg" alt="ssh-conduit/fs_selected_alternative_profile_shown_in_button.jpg" />
+</span></p></div>
+<div class="paragraph"><p>The name of the selected alternative profile is shown in the button.<br />
+Press the <em>OK</em> button to begin making the connection</p></div>
+<div class="paragraph"><p>When prompted input the password for the remote account.</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>To indicate an FS connection, an icon is added to the task bar tray of your local system</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/fs_task_bar_icon.jpg" alt="ssh-conduit/fs_task_bar_icon.jpg" />
+</span></p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+<div class="sect2">
+<h3 id="_example_vnc_access_within_a_lan_preferred_profile_bypassed_no_profile_used">Example VNC Access Within a LAN, Preferred Profile Bypassed, No Profile Used</h3>
+<div class="paragraph"><p>In this example:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+You must have at least one, fully configured profile for VNC access
+</p>
+</li>
+<li>
+<p>
+You must have previously nominated a profile as a preferred profile
+</p>
+</li>
+<li>
+<p>
+You will bypass the automatic use of a preferred profile
+</p>
+</li>
+<li>
+<p>
+You will manually input the connection details
+</p>
+</li>
+<li>
+<p>
+When the remote system authorises the connection a window will open showing the remote system screen on your local desktop
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vnc_suite_menu.jpg" alt="ssh-conduit/vnc_suite_menu.jpg" />
+</span></p></div>
+<div class="paragraph"><p>From the suite main menu start VNC access mode</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vnc_bypass_preferred_profile.jpg" alt="ssh-conduit/vnc_bypass_preferred_profile.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Press the <em>Ad Hoc</em> button before the countdown ends</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">If a button is not pressed, <em>Preferred</em> is automatically started after a timeout<br />
+<br />
+The countdown period can be adjusted in <em>ssvnc.conf</em>.<br />
+Each individual access component can be modified in a similar way by changing the value in its corresponding conf file.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vnc_ssvnc_input_window.jpg" alt="ssh-conduit/vnc_ssvnc_input_window.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Input:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The user name on the remote system that will be used to log in to it
+</p>
+</li>
+<li>
+<p>
+The LAN IP address of the remote system that is running the suite VNC server
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Press the <em>Connect</em> button</p></div>
+<div class="paragraph"><p>When prompted input two passwords:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+One for the remote account login
+</p>
+</li>
+<li>
+<p>
+One for the VNC server to open the session
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">An alternative to being prompted for the VNC password is to input it in the <em>VNC Password</em> field in the above window<br />
+<br />
+If the SSH VNC Viewer window is too small for comfortable use, increase the size of the font in <em>ssvnc.conf</em>.
+The window will adjust to accommodate the text size.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">It is recommended you do not save the profile by pressing the <em>Save</em> button.
+Doing so will create a profile that is different to the suite standard template.
+It will be more difficult for you to edit and may omit optimizations the standard template contains.
+The recommended way to create a profile is by copying ssh-conduit_template_profile.ssvnc, in a similar way to that described in an example above.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vnc_remote_login_screen.jpg" alt="ssh-conduit/vnc_remote_login_screen.jpg" />
+</span></p></div>
+<div class="paragraph"><p>A window showing the remote system screen is automatically opened.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">A VNC access session is able to display the remote system screen whether or not anyone is logged into the remote system.
+In this way, an increased security risk can be avoided.
+Instead of leaving the remote system in a state where a user is permanently logged in, it may be left at its log in screen.
+In such a case, a standard log in may be performed by a user physically present at the remote location, or one connecting
+over a network to hold a VNC access session.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">If the remote desktop is too large to fit within your local desktop, refer to the section <em>VNC Utilities</em>.<br /></td>
+</tr></table>
+</div>
+<div class="sect3">
+<h4 id="_vnc_utilities">VNC Utilities</h4>
+<div class="paragraph"><p>When the access session is granted and the desktop of the remote system is showing on your desktop, a range of built-in utilities become available.</p></div>
+<div class="paragraph"><p>Move the your pointer into the shared desktop and press F8.<br />
+A popup menu is displayed.</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/vnc_utilities_popup_window.jpg" alt="ssh-conduit/vnc_utilities_popup_window.jpg" />
+</span></p></div>
+<div class="paragraph"><p>Select <em>Dismiss popup</em> to close the popup menu.<br />
+Select <em>Quit viewer</em> to end the session and the connection to the remote system.</p></div>
+<div class="paragraph"><p>The remaining entries are described in the installed or on-line manual SSVNC.<br />
+Some provide enhanced functionality, others affect perceived performance.</p></div>
+<div class="paragraph"><p>Some that might improve perceived performance</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>8 Bit Color</em> reduces the number of colors in the shared desktop displayed on your local screen
+</p>
+</li>
+<li>
+<p>
+<em>Grey Scale</em> displays only shades of grey in the shared desktop displayed on your local screen
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Some that will probably degrade perceived performance</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>Full Color</em> displays the maximum number of colors in the shared desktop displayed on your local screen
+</p>
+</li>
+<li>
+<p>
+<em>Scale Viewer</em> adjusts the size of the shared desktop displayed on your local screen
+</p>
+</li>
+<li>
+<p>
+<em>Set 1/n Server Scale</em> adjusts the size of the shared desktop displayed on your local screen
+</p>
+</li>
+<li>
+<p>
+<em>Toggle Tight/ZRLE</em> adjusts the way in which changes on the receiver desktop are handled on your local screen
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">Quality level, Compress level, and Disable JPEG only apply when using Tight encoding rather than the default ZRLE</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>In addition to the popup menu tweaks, perceived performance might be improved by altering the screen resolution of the remote system.</p></div>
+<div class="paragraph"><p>In the shared desktop, adjust screen resolution to a lower value.  The lower the value the more noticable is the potential improvement.<br />
+This is also a good way to ensure the remote desktop fits entirely within your local desktop.<br />
+Before closing the VNC access session, reset the remote screen resolution to its original value via the shared desktop.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">Whatever performance tweaks are used, the amount by which performance changes will vary from system to system and network to network.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_closing_an_access_session">Closing an Access Session</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>There are several ways to end an access session:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+From the suite main menu, choose the access component you want to stop and press the <em>OK</em> button.<br />
+One of two screens will be shown depending on whether a profile exists for the component.<br />
+From either screen you can disconnect and end the session.
+</p>
+</li>
+<li>
+<p>
+You may left-click either of these icons whenever thay are showing in the system tray of the task bar.<br />
+<span class="image">
+<img src="images/ssh-conduit/fs_task_bar_icon.jpg" alt="ssh-conduit/fs_task_bar_icon.jpg" />
+</span> <span class="image">
+<img src="images/ssh-conduit/vpn_task_bar_icon.jpg" alt="ssh-conduit/vpn_task_bar_icon.jpg" />
+</span>
+</p>
+</li>
+<li>
+<p>
+A CLI session should be closed by typing the command <em>exit</em> into its terminal window.
+</p>
+</li>
+<li>
+<p>
+To end a VNC session, place your pointer arrow within the remote desktop window, press F8 on your keyboard and select <em>Quit viewer</em>.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_providing_resources_to_a_remote_system">Providing Resources to a Remote System</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Prerequisites on the system providing the resources:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+SSH server daemon is running
+</p>
+</li>
+<li>
+<p>
+A user account exists for each user requesting an access session
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Before access to a resource is granted:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A log-in request must be received via SSH from the system requesting an access session
+</p>
+</li>
+<li>
+<p>
+The system providing the resource must authorise the log-in request
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>After a successful log-in, the requested resource is made available automatically.</p></div>
+<div class="sect2">
+<h3 id="_enabling_vnc">Enabling VNC</h3>
+<div class="paragraph"><p>Before providing VNC access, a few set up steps are required.
+These need to be done once only:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Create a VNC password the server will require to be supplied each time a remote system requests a VNC access session
+</p>
+</li>
+<li>
+<p>
+Ensure the suite VNC server is available before and during every log-in and after every log-out
+</p>
+</li>
+<li>
+<p>
+Show a VNC server icon in the task bar tray when the server is started automatically at boot-up and is currently running
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Both creating a VNC password and enabling the VNC server are done via menu items</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/adm_suite_menu.jpg" alt="ssh-conduit/adm_suite_menu.jpg" />
+</span></p></div>
+<div class="paragraph"><p>From the suite main menu start ADM administration mode</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/ssh-conduit/adm_change_vnc_password.jpg" alt="ssh-conduit/adm_change_vnc_password.jpg" />
+</span></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>VNC Password</strong></span></p></div>
+<div class="paragraph"><p>Before the server grants access to a session, the system requesting the access must supply a VNC password which the VNC server must authorise.
+This provides an additional layer of security and control over who is allowed to obtain a VNC access session.</p></div>
+<div class="paragraph"><p>From the menu select <em>Change the password the VNC server requires to open a session</em></p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Input your local administrative password when prompted
+</p>
+</li>
+<li>
+<p>
+Input the VNC password you want to set up
+</p>
+</li>
+<li>
+<p>
+Confirm the VNC password
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">The password can be changed at any time by repeating the above steps.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>VNC Server Availability</strong></span></p></div>
+<div class="paragraph"><p>Providing VNC is different to providing the other types of resources.
+It is the only type that requires its own server to be running.
+Although the amount of RAM used by the VNC server is tiny, in the interests of minimizing RAM usage it is installed in a deactivated state.</p></div>
+<div class="paragraph"><p>The primary goal of the suite is to access resouces on an unattended remote system.
+To do that, the VNC server needs to be available both before and after a user has logged-in.
+By starting the server as part of the system boot-up routine it sets itself up in the required way.
+It is available before and during a log-in and automatically restarts after a log-out.</p></div>
+<div class="paragraph"><p>From the menu select <em>Toggle auto start of the SSH-Conduit VNC Server for next boot up</em></p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A message will be displayed indicating whether the server will or will not be started during the next boot up
+</p>
+</li>
+<li>
+<p>
+Reboot the system
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/info.png" alt="Note" />
+</td>
+<td class="content">To cover unusual circumstances, a menu option is available <em>Start the VNC server for the current log-in session only</em>
+Because the server is not available before log-in or after log-out, the circumstances in which this mode is useful are quite limited.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">Only a single instance of the suite VNC server is permitted to run.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>VNC Server Icon in Task Bar Tray</strong></span></p></div>
+<div class="paragraph"><p>The icon is shown while the server is running:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+It changes colour to indicate when an access session has been granted
+</p>
+</li>
+<li>
+<p>
+It provides a menu of server management tasks
+</p>
+</li>
+<li>
+<p>
+It is a way of opening the server GUI window
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>It can only be displayed when a user is logged-in and their desktop is running.</p></div>
+<div class="paragraph"><p>When the server is started during the system boot-up and the log-in screen is displayed awaiting a log-in, a user owned desktop is not yet started.
+In that case the GUI icon must be started separately when a user owned session begins.</p></div>
+<div class="paragraph"><p>In your text editor open the file that controls the apps to run for your log-in session.
+Ensure the following entry is present.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/settings.png" alt="Note" />
+</td>
+<td class="content">
+<div class="paragraph"><p>Command to display an x11vnc GUI after a user log-in</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>...
+# Uncomment to attach a gui to a running ssh-conduit-x11vnc server
+ssh-conduit-x11vnc.sh gui &amp;
+...</code></pre>
+</div></div>
+</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip2.png" alt="Tip" />
+</td>
+<td class="content">The server window can be shown on the desktop instead of the tray icon.<br />
+Edit <em>supplementary.conf</em> and change the appropriate value.<br />
+<br />
+If the server window or icon menu is too small for comfortable use, increase the size of the font in <em>supplementary.conf</em>.
+The window or icon menu will adjust to accommodate the text size.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary_of_files">Summary of Files</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>Configuration and profile files:</strong></span></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>.config/ssh-conduit/
+├── cli
+│   ├── profiles
+│   │   └── ssh-conduit template profile.cli
+│   └── cli.conf
+├── sshfs
+│   ├── profiles
+│   │   └── ssh-conduit template profile.sshfs
+│   └── sshfs.conf
+├── sshuttle
+│   ├── profiles
+│   │   └── ssh-conduit template profile.sshuttle
+│   └── sshuttle.conf
+└── ssvnc
+    ├── profiles -&gt; /home/USERNAME/.vnc/profiles
+    │   ├── ssh_known_hosts
+    │   └── ssh-conduit_template_profile.ssvnc
+    └── ssvnc.conf
+
+
+/etc/ssh-conduit/
+└── x11vnc
+    ├── supplementary.conf
+    └── x11vncrc</code></pre>
+</div></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>Executable files:</strong></span></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>/usr/local/bin/
+├── ssh-conduit-admin-centre.sh
+├── ssh-conduit-cli.sh
+├── ssh-conduit.sh
+├── ssh-conduit-sshfs.sh
+├── ssh-conduit-sshuttle.sh
+├── ssh-conduit-ssvnc.sh
+└── ssh-conduit-x11vnc.sh
+
+
+/etc/init.d/
+└── ssh-conduit-vnc-server</code></pre>
+</div></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>Library files:</strong></span></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>/usr/local/lib/ssh-conduit/
+├── button-icons
+│   ├── Ad-Hoc-16.png
+│   ├── Cancel-16.png
+│   ├── Check-16.png
+│   ├── Close-16.png
+│   ├── Help-16.png
+│   ├── Network-Disconnected-16.png
+│   └── Target-16.png
+├── tray-icons
+│   ├── ssh-conduit-f-48.png
+│   └── ssh-conduit-v-48.png
+└── lib-ssh-conduit-suite</code></pre>
+</div></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>Log files:</strong></span></p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>/var/log/
+├── ssh-conduit-x11vnc.log   (x11vnc)
+└── syslog                   (sshuttle)</code></pre>
+</div></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p>&nbsp;</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>&nbsp;</p></div>
+<div class="paragraph"><p><span class="underline"><strong>OPENSSH:</strong></span> <a href="https://www.openssh.com">https://www.openssh.com</a><br />
+<span class="underline"><strong>SSHFS:</strong></span> <a href="https://github.com/libfuse/sshfs">https://github.com/libfuse/sshfs</a><br />
+<span class="underline"><strong>SSHUTTLE:</strong></span> <a href="https://github.com/sshuttle/sshuttle">https://github.com/sshuttle/sshuttle</a><br />
+<span class="underline"><strong>SSVNC:</strong></span> <a href="http://www.karlrunge.com/x11vnc/ssvnc.html">http://www.karlrunge.com/x11vnc/ssvnc.html</a><br />
+<span class="underline"><strong>X11VNC:</strong></span> <a href="http://www.karlrunge.com/x11vnc">http://www.karlrunge.com/x11vnc</a></p></div>
+<div class="paragraph"><p><a href="#table_of_contents">Table of Contents</a></p></div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version: 0.2.0
+Last updated 2017-10-28 12:32:55 EEST
+</div>
+</div>
+</div>
+</body>
+</html>
