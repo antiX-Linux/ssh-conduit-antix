@@ -8,7 +8,7 @@ Homepage: https://github.com/antiX-Linux/ssh-conduit-antix
 
 Package: ssh-conduit-antix
 Architecture: all
-Depends: yad, sshuttle, ssvnc, x11vnc 
+Depends: yad, sshuttle, ssvnc, x11vnc, openssh-client, openssh-server, ssh-askpass, libtcl8.6 (>=8.6.6), tcl8.6 (>= 8.6.6)
 Description: A simple way to use remote resouces via an ssh encypted connection.
 
 

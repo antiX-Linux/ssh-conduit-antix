@@ -1,6 +1,8 @@
 [Desktop Entry]
 Name=SSH-Conduit
+Name[el]=SSH-Conduit
 Comment=Use remote resouces via an ssh encypted connection
+Comment[el]=Χρησιμοποιήστε απομακρυσμένους πόρους μέσω κρυπτογραφημένης σύνδεσης ssh
 Exec=ssh-conduit.sh
 Icon=ssh-conduit.png
 Terminal=False

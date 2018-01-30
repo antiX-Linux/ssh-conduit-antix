@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set -e
+
+ if [ -x /etc/init.d/ssh-conduit-vnc-server ]; then
+update-rc.d ssh-conduit-vnc-server remove >/dev/null 2>&1
+update-rc.d ssh-conduit-vnc-server defaults >/dev/null 2>&1
+update-rc.d ssh-conduit-vnc-server disable >/dev/null 2>&1
+fi
+
+#DEBHELPER#
+
+exit 0

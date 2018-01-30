@@ -1,3 +1,11 @@
+ssh-conduit-antix (1.1.1) unstable; urgency=medium
+
+  * added full dependencies
+  * make sure this happens on install - update-rc.d ssh-conduit-vnc-server defaults and update-rc.d ssh-conduit-vnc-server disable
+  * include doc files
+
+ -- anticapitalista <antix@operamail.com>  Sun, 28 Jan 2018 17:22:30 +0200
+
 ssh-conduit-antix (1.1) unstable; urgency=medium
 
   * Correct updated lib-ssh-conduit-suite
