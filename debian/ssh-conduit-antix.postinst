@@ -8,6 +8,8 @@ update-rc.d ssh-conduit-vnc-server defaults >/dev/null 2>&1
 update-rc.d ssh-conduit-vnc-server disable >/dev/null 2>&1
 fi
 
+chmod 666 /var/log/ssh-conduit-x11vnc.log
+
 #DEBHELPER#
 
 exit 0

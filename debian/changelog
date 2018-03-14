@@ -1,3 +1,9 @@
+ssh-conduit-antix (1.1.2) unstable; urgency=medium
+
+  * set ssh-conduit-x11vnc.log to chmod 666
+
+ -- anticapitalista <antix@operamail.com>  Mon, 12 Mar 2018 13:39:09 +0200
+
 ssh-conduit-antix (1.1.1) unstable; urgency=medium
 
   * added full dependencies
